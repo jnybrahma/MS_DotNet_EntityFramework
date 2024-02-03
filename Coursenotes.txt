@@ -1,0 +1,564 @@
+
+%----------------------- C# .NET Core 8 with MS SQL Complete Beginner to Master 2024 ----------------------------------------------%
+
+
+Install List
+Hello, in case you would rather go through this on your own, or if you wanted to skip over the step where we search for these links on Google, you can use the links on this list to install all of the programs we will be using and download the Github repository with all of the source code from the course.
+
+
+
+Visual Studio Code && .NET SDK
+
+https://dotnet.microsoft.com/en-us/download
+
+https://code.visualstudio.com/Download?WT.mc_id=dotnet-35129-website
+
+Azure Data Studio && MS SQL Server
+
+https://learn.microsoft.com/en-us/sql/azure-data-studio/download-azure-data-studio?view=sql-server-ver16
+
+https://www.microsoft.com/en-us/sql-server/sql-server-downloads (Developer Version)
+
+Postman
+
+https://www.postman.com/downloads/
+
+Git Repo
+
+https://github.com/DomTripodi93/DotNetAPICourse
+
+Azure CLI tools
+
+https://learn.microsoft.com/en-us/cli/azure/install-azure-cli
+
+Join our Facebook community group to ask questions or help your fellow students!
+
+https://www.facebook.com/groups/1103892290282526
+
+## Download and running docker azure sql image 
+
+>> docker run -e "ACCEPT_EULA=1" -e "MSSQL_USER=SA" -e "MSSQL_SA_PASSWORD=SQLCONNECT1" -e "MSSQL_PID=Developer" -p 1433:1433 -d --name=sql_connect mcr.microsoft.com/azure-sql-edge
+
+Unable to find image 'mcr.microsoft.com/azure-sql-edge:latest' locally
+latest: Pulling from azure-sql-edge
+f0412dfb1aae: Pull complete
+c62c3fc0300d: Pull complete
+57f13386bc1b: Pull complete
+dcc7b800eec9: Pull complete
+Digest: sha256:902628a8be89e35dfb7895ca31d602974c7bafde4d583a0d0873844feb1c42cf
+Status: Downloaded newer image for mcr.microsoft.com/azure-sql-edge:latest
+e06685a89a1025dd8c7919574cb14364f3fe947afee164a2e02a34a5089e249b
+
+>> docker container ls -a
+>> docker ps
+
+
+
+%--------------------------------------------- Section 1: Introduction -----------------------------------------------------%
+
+## Compile program code;
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects> dotnet new console -n HelloWorld
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects> ls
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects\HelloWorld> 
+
+## Run the build compile code;
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects\HelloWorld> dotnet run
+Hello, World!
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects\HelloWorld> dotnet watch run
+Hello, World! This first C# programs
+
+
+Nuget package source and C# extensions in VS Code
+Hello!
+
+In the next lecture we will make sure that we are all connected to a nuget package source, and 
+get a few extensions installed in VS Code to make sure that intellisense in VS Code will work for you throughout the course.
+
+
+
+First we will check if we already have a nuget source with the following command:
+dotnet nuget list source
+
+Next we will attempt to add the nuget.org source with the following command:
+dotnet nuget add source https://api.nuget.org/v3/index.json -n nuget.org
+
+For the add source command I will be copying it from the text above, and I suggest that you do the same to avoid typos and save yourself some time.
+
+
+Finally we will open VS Code and install the following extensions
+C#
+
+C# Dev Kit
+
+See you in the next lecture!
+Dominic
+
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects> dotnet nuget list source
+Registered Sources:
+  1.  nuget.org [Enabled]
+      https://api.nuget.org/v3/index.json
+	  
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects> dotnet nuget add source https://api.nuget.org/v3/index.json -n nuget.org
+
+
+error: The name specified has already been added to the list of available package sources. Provide a unique name.
+
+
+Usage: dotnet nuget add source [arguments] [options]
+
+Arguments:
+  PackageSourcePath  Path to the package source.
+
+Options:
+  -n|--name                       Name of the source.
+  -u|--username                   Username to be used when connecting to an authenticated source.
+  -p|--password                   Password to be used when connecting to an authenticated source.
+  --store-password-in-clear-text  Enables storing portable package source credentials by disabling password encryption.
+  --valid-authentication-types    Comma-separated list of valid authentication types for this source. Set this to basic if the server advertises NTLM or Negotiate and your credentials must be sent using the Basic mechanism, for instance when using a PAT with on-premises Azure DevOps Server. Other valid values include negotiate, kerberos, ntlm, and digest, but these values are unlikely to be useful.
+  --protocol-version              The NuGet server protocol version to be used. Currently supported versions are 2 and 3. See https://learn.microsoft.com/nuget/api/overview for information about the version 3 protocol. Defaults to 2 if not specified.
+  --configfile                    The NuGet configuration file. If specified, only the settings from this file will be used. If not specified, the hierarchy of configuration files from the current directory will be used. For more information, see https://docs.microsoft.com/nuget/consume-packages/configuring-nuget-behavior.
+  -h|--help                       Show help information
+  
+  
+
+  
+  
+%--------------------------------------------- Section 2: C# Crash Course - Basics -----------------------------------------------------%
+
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects> 
+
+In the Next Lecture I will be copy pasting this code into the "Main" method in my Visual Studio Code window to streamline the process of covering these different variable types and supply some of the notes and specific numbers that are related to different variable types in C#.
+
+The Script below can be copied into your Visual Studio Code project's "Main" method, or you can type it out as we cover each type, whichever you prefer.
+
+
+
+A lot of what we cover in the next lecture is more to give you a reference point, and less something that you need to memorize, so don't worry too much about taking notes, the goal is just to understand the basic idea of the data types we will talk about.
+
+
+
+            //// 1 byte is made up of 8 bits 00000000 - these bits can be used to store a number as follows
+            // //// Each bit can be worth 0 or 1 of the value it is placed in
+            // ////// From the right we start with a value of 1 and double for each digit to the left
+            // //// 00000000 = 0
+            // //// 00000001 = 1
+            // //// 00000010 = 2
+            // //// 00000011 = 3
+            // //// 00000100 = 4
+            // //// 00000101 = 5
+            // //// 00000110 = 6
+            // //// 00000111 = 7
+            // //// 00001000 = 8
+ 
+            // 1 byte (8 bit) unsigned, where signed means it can be negative
+            byte myByte = 255;
+            byte mySecondByte = 0;
+ 
+            // 1 byte (8 bit) signed, where signed means it can be negative
+            sbyte mySbyte = 127;
+            sbyte mySecondSbyte = -128;
+ 
+ 
+            // 2 byte (16 bit) unsigned, where signed means it can be negative
+            ushort myUshort = 65535;
+ 
+            // 2 byte (16 bit) signed, where signed means it can be negative
+            short myShort = -32768;
+ 
+            // 4 byte (32 bit) signed, where signed means it can be negative
+            int myInt = 2147483647;
+            int mySecondInt = -2147483648;
+ 
+            // 8 byte (64 bit) signed, where signed means it can be negative
+            long myLong = -9223372036854775808;
+ 
+ 
+            // 4 byte (32 bit) floating point number
+            float myFloat = 0.751f;
+            float mySecondFloat = 0.75f;
+ 
+            // 8 byte (64 bit) floating point number
+            double myDouble = 0.751;
+            double mySecondDouble = 0.75d;
+ 
+            // 16 byte (128 bit) floating point number
+            decimal myDecimal = 0.751m;
+            decimal mySecondDecimal = 0.75m;
+ 
+            // Console.WriteLine(myFloat - mySecondFloat);
+            // Console.WriteLine(myDouble - mySecondDouble);
+            // Console.WriteLine(myDecimal - mySecondDecimal);
+ 
+ 
+ 
+            string myString = "Hello World";
+            // Console.WriteLine(myString);
+            string myStringWithSymbols = "!@#$@^$%%^&(&%^*__)+%^@##$!@%123589071340698ughedfaoig137";
+            // Console.WriteLine(myStringWithSymbols);
+ 
+            bool myBool = true;
+
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects> dotnet new console -n Variables
+
+
+## Data Structures:
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects> dotnet new console -n DataStructures
+
+## Operators and Conditionals:
+
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects> dotnet new console -n OperatorsAndCondition
+
+
+
+## Conditional Statements;
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects> dotnet new console -n Conditional
+
+## Loops;
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects> dotnet new console -n Loops
+
+## Methods;
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects> dotnet new console -n Methods
+
+
+## Scope:
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects> dotnet new console -n Scopes
+
+
+
+%--------------------------------------------- Section 3: C# Crash Course - Intermediate  -----------------------------------------------------%
+
+## Models:
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects> dotnet new console -n Models
+
+## String Property Defaults:
+
+- One of our students has pointed out to me that there is an even easier way to manage the warning about strings being null when exiting the constructor.
+- In the last lecture we set up a constructor for our model class to set the value if it were ever null, 
+- however we could also declare a default value for the property during the property declaration in the class very simply like this:
+
+    public class Computer
+    {
+        public string Motherboard { get; set; } = "";
+        public int CPUCores { get; set; }
+        public bool HasWifi { get; set; }
+        public bool HasLTE { get; set; }
+        public DateTime ReleaseDate { get; set; }
+        public decimal Price { get; set; }
+        public string VideoCard { get; set; } = "";
+    }
+	
+
+## Namespaces
+
+Computer SQL Script
+Hello!
+
+In the next lecture we will create our first SQL table to mimic our Computer model.
+
+Because there will be a more in depth explanation of creating SQL tables in the SQL section of the course, 
+I wanted to include the script that you can copy paste into Azure Data Studio to set up that table 
+so that we can stay mostly focused on the C# side of things in the next few lectures.
+
+
+
+CREATE DATABASE DotNetCourseDatabase
+GO
+ 
+USE DotNetCourseDatabase
+GO
+ 
+CREATE SCHEMA TutorialAppSchema
+GO
+ 
+CREATE TABLE TutorialAppSchema.Computer(
+    ComputerId INT IDENTITY(1,1) PRIMARY KEY,
+    Motherboard NVARCHAR(50),
+    CPUCores INT,
+    HasWifi BIT,
+    HasLTE BIT,
+    ReleaseDate DATE,
+    Price DECIMAL(18,4),
+    VideoCard NVARCHAR(50)
+);
+
+
+## Database Connections
+In the next lecture we are going to be connecting out program to the database.
+
+For a small percentage of Windows users you may receive an error "A network-related or instance-specific error occurred..."
+
+This is only happening to a handful of students, so I do encourage you to try to follow along with the next lecture, 
+and to just revisit these instructions if the error pops up for you.
+
+
+If that error pops up, something has happened  during your installation of SQL server that is stopping it from being accessible.
+The steps below will help you to ensure the correct settings are selected for it to be accessible:
+
+1. Search for "SQL Server Configuration Manager" or "SQL Server 2022 Configuration Manager" program
+
+2. Select "SQL Server Network Configuration"
+
+3. Select "Protocols for MSSQLServer"
+
+4. Right Click on "TCP/IP" and select "Properties" 
+
+5. Make sure "Enabled" is set to "Yes"
+
+6. Select "IP Addresses" Tab
+
+7. Scroll all the way down to the last entry, "IP All"
+
+8. Set the "TCP Port" to 1433.
+
+9. Select Apply and Ok
+
+10. In the main Sql Server Configuration Manager window, select "SQL Server Services" from the side menu
+
+11. Right click on "SQL Server (MSSQLSERVER)" and select "Restart"
+
+12. Go back to Azure Data Studio and add the port number "1433" to the server name "localhost:1433"
+
+13. Set the Server Name in your connection string to also be "localhost:1433"
+
+
+If you have gotten this error and still were not able to resolve it with the steps above, please leave a comment and I will help you to troubleshoot.
+------------------------------------------------------------------------------------
+
+CREATE DATABASE DotNetCourseDatabase
+GO
+
+USE DotNetCourseDatabase
+GO
+
+CREATE SCHEMA TutorialAppSchema
+GO
+
+CREATE TABLE TutorialAppSchema.Computer(
+	ComputerId INT IDENTITY(1,1) PRIMARY KEY,
+	Motherboard NVARCHAR(50),
+	CPUCores INT,
+	HasWifi BIT,
+	HasLTE BIT,
+	ReleaseDate DATE,
+	Price DECIMAL(18,4),
+	VideoCard NVARCHAR(50)
+);
+------------------------------------------------------------------------------
+First:
+In the next lecture when we try to insert a decimal value to our table in the SQL Database, 
+ome people will receive an error like the title of this lecture "Error converting data type varchar to numeric".
+
+This is usually because in some areas of the world that use a comma( , ) instead of a period( . ) as a decimal point, and MS SQL Server doesn't understand that format.
+The solution to this is to add a formatting conversion that uses InvariantCulture as the provider, and "0.00" as the format with ".ToString("0.00", CultureInfo.InvariantCulture)".
+
+myComputer.Price.ToString("0.00", CultureInfo.InvariantCulture)
+
+
+Second:
+
+In the same piece of code we will attempt to insert a date to our table, 
+some people will receive a different error: "Conversion failed when converting date and/or time from character string".
+This is because in some areas the date format is not recognized by MS SQL Server.
+The solution to this is also to add a formatting conversion to a standardized format ".ToString("yyyy-MM-dd")"
+
+myComputer.ReleaseDate.ToString("yyyy-MM-dd")
+
+These formatting adjustments should make sure that wherever you are in the world, MS SQL server will accept the values we are going to insert.
+
+
+USE master
+
+DROP DotNetCourseDatabase
+
+SELECT * FROM TutorialAppSchema.Computer
+
+## Adding Dapper , Sql , Entity framework  package
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects\models> dotnet add package Dapper
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects\models> dotnet add package microsoft.data.sqlclient
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects\models> dotnet add package microsoft.entityframeworkcore
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects\models> dotnet add package microsoft.entityframeworkcore.sqlserver
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects\models> dotnet add package microsoft.Extensions.Configuration
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects\models> dotnet add package microsoft.Extensions.Configuration.Json
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects\models> dotnet restore
+
+---------------------------------------------------------------------------------------------
+
+		string connectionString = "Server=localhost;Database=DotNetCourseDatabase;TrustServerCertificate=true;Trusted_Connection=true;"; // for window operating system
+		
+		string connectionString = "Server=localhost;Database=DotNetCourseDatabase;TrustServerCertificate=true;Trusted_Connection=false; user Id=sa; password=sqlconnect1";  // for linux ,  mac-os system
+        
+		IDbConnection dbConnection = new SqlConnection(connectionString);
+        
+        string sqlCommand = "SELECT GETDATE()";
+
+        DateTime rightNow = dbConnection.QuerySingle<DateTime>(sqlCommand);
+
+        Console.WriteLine(rightNow);
+
+
+
+-----------------------------------------------------------------------------------
+
+
+## Dapper
+
+string connectionString = "Server=localhost;Database=DotNetCourseDatabase;TrustServerCertificate=true;Trusted_Connection=true;";
+
+IDbConnection dbConnection = new SqlConnection(connectionString);
+        
+string sqlCommand = "SELECT GETDATE()";
+
+DateTime rightNow = dbConnection.QuerySingle<DateTime>(sqlCommand);
+
+
+
+## Entity Framework
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects> dotnet new console -n EntityFramework
+
+----------------------------------------------------------------------------------
+
+using EntityFramework.Models;
+using Microsoft.EntityFrameworkCore;
+
+namespace EntityFramework.Data
+{
+    public class DataContextEF : DbContext
+    {
+        public DbSet<Computer>? Computer {get; set;}
+        protected override void OnConfiguring(DbContextOptionsBuilder options)
+        {
+            if(!options.IsConfigured)
+            {
+                options.UseSqlServer("Server=localhost;Database=DotNetCourseDatabase;TrustServerCertificate=true;Trusted_Connection=true;"
+                ,options => options.EnableRetryOnFailure());
+            }
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {   
+            modelBuilder.HasDefaultSchema("TutorialAppSchema");
+            modelBuilder.Entity<Computer>()
+            //.HasNoKey()
+            .HasKey( c => c.ComputerId);
+            //.ToTable("Computer", "TutorialAppSchema");
+            //.ToTable("TableName", "SchemaName");
+        }
+
+    }
+
+}
+
+
+--------------------------------------------------------------------------------
+## Config:
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects\EntityFramework> dotnet add package microsoft.Extensions.Configuration
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects\EntityFramework> dotnet add package microsoft.Extensions.Configuration.Json
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects\EntityFramework> dotnet restore
+
+>> git config --global --add safe.directory D:/Udemy_Course/dotNet_With_SQL/projects/EntityFramework
+>> git branch -M master
+>> git remote add origin https://github.com/jnybrahma/MS_DotNet_EntityFramework.git
+>> git push -u origin master
+
+
+## File Read and Write: 
+
+(base) PS D:\Udemy_Course\dotNet_With_SQL\projects> dotnet new console -n ReadWriteFile
+
+- Reading/Writing to File
+- Parsing JSON - Deserializing/ Serializing
+- Simple Model Mapping - Automapper , JSONAttributeName
+
+
+## JSON:
+
+
+## Model Mapping;
+
+
+
+%--------------------------------------------- Section 4: SQL Seed -----------------------------------------------------%
+
+
+
+%--------------------------------------------- Section 5: Sql -----------------------------------------------------%
+
+
+
+
+%--------------------------------------------- Section 6: API Basics -----------------------------------------------------%
+
+
+
+
+%--------------------------------------------- Section 7: API - Intermediate -----------------------------------------------------%
+
+
+
+
+
+%--------------------------------------------- Section 8: Stored Procedures ----------------------------------------------%
+
+
+
+
+
+
+%--------------------------------------------- Section 9: API Advanced ----------------------------------------------%
+
+
+
+
+
+
+%--------------------------------------------- Section 10: Azure Deploy----------------------------------------------%
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
